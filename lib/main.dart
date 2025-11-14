@@ -10,7 +10,7 @@ void main() {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => GetMaterialApp(
-        title: "Application",
+        title: "Aqua",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       ),

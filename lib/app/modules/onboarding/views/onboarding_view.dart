@@ -40,21 +40,14 @@ class OnboardingView extends GetView<OnboardingController> {
 
             // Next/Get Started Button
             Obx(
-              () => SizedBox(
-                height: 41.h,
-                width: double.infinity,
+              () => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 19.w),
                 child: CustomButton(
-                  onpress: controller.nextPage,
-                  child: Text(
-                    controller.currentPage.value == controller.pages.length - 1
-                        ? 'Get Started'
-                        : 'Next',
-                    style: GoogleFonts.inter(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
+                  text:
+                      controller.currentPage.value == controller.pages.length - 1
+                      ? 'Get Started'
+                      : 'Next',
+                  onPressed: controller.nextPage
                 ),
               ),
             ),
@@ -109,6 +102,7 @@ class OnboardingView extends GetView<OnboardingController> {
     );
   }
 }
+
 // ==================== ONBOARDING PAGE WIDGET ====================
 class _OnboardingPage extends StatelessWidget {
   final OnboardingData data;
