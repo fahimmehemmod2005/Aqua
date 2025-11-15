@@ -9,13 +9,15 @@ class SignupstepsController extends GetxController {
   final selectedGender = ''.obs;
   final age = 32.obs;
   final weight = 62.obs;
+  final weightUnit = 'Kg'.obs; // Kg or Lb
   final activityLevel = ''.obs;
   final climate = ''.obs;
   final sleepHours = ''.obs;
 
   // Calculated hydration goal
   final hydrationGoal = 0.obs;
-  final hydrationPercentage = 70.obs;
+  final calculationProgress = 0.0.obs;
+  final isCalculating = false.obs;
 
   // Progress for current step
   double get progress => (currentStep.value + 1) / totalSteps;
@@ -53,6 +55,21 @@ class SignupstepsController extends GetxController {
     weight.value = value;
   }
 
+  // Weight unit selection
+  void updateWeightUnit(String unit) {
+    if (weightUnit.value != unit) {
+      // Convert weight when unit changes
+      if (unit == 'Lb') {
+        // Convert kg to lb (1 kg = 2.20462 lb)
+        weight.value = (weight.value * 2.20462).round();
+      } else {
+        // Convert lb to kg
+        weight.value = (weight.value / 2.20462).round();
+      }
+      weightUnit.value = unit;
+    }
+  }
+
   // Activity level selection
   void selectActivityLevel(String level) {
     activityLevel.value = level;
@@ -68,11 +85,26 @@ class SignupstepsController extends GetxController {
     sleepHours.value = hours;
   }
 
-  // Calculate hydration goal
-  void calculateHydration() {
+  // Calculate hydration goal with animation
+  Future<void> calculateHydration() async {
+    isCalculating.value = true;
+    calculationProgress.value = 0.0;
+
+    // Animate progress from 0 to 100
+    for (int i = 0; i <= 100; i++) {
+      await Future.delayed(const Duration(milliseconds: 20));
+      calculationProgress.value = i / 100;
+    }
+
+    // Convert weight to kg if in pounds
+    int weightInKg = weight.value;
+    if (weightUnit.value == 'Lb') {
+      weightInKg = (weight.value / 2.20462).round();
+    }
+
     // Basic calculation: weight * 30-35 ml
     // Add factors for activity, climate, sleep
-    int baseHydration = weight.value * 33;
+    int baseHydration = weightInKg * 33;
 
     // Activity level multiplier
     double activityMultiplier = 1.0;
@@ -89,12 +121,17 @@ class SignupstepsController extends GetxController {
     if (sleepHours.value == 'Less than 6 hours') sleepMultiplier = 1.1;
     if (sleepHours.value == 'More than 8 hours') sleepMultiplier = 0.95;
 
-    hydrationGoal.value = (baseHydration * activityMultiplier * climateMultiplier * sleepMultiplier).round();
+    hydrationGoal.value = (baseHydration *
+        activityMultiplier *
+        climateMultiplier *
+        sleepMultiplier)
+        .round();
+
+    isCalculating.value = false;
   }
 
   // Finish onboarding
   void finishOnboarding() {
-    calculateHydration();
     // Navigate to main app or save preferences
     Get.offAllNamed('/home');
   }

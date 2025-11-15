@@ -211,27 +211,32 @@ class LoginView extends GetView<LoginController> {
               SizedBox(height: 30.h),
 
               /// SIGN IN BUTTON
-              CustomButton(
-                text: 'Sign in',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Get.snackbar(
-                      "Success",
-                      "Login successfully!",
-                      snackPosition: SnackPosition.TOP,
-                      colorText: Colors.black,
-                      backgroundColor: Colors.transparent,
-                    );
-                  } else {
-                    Get.snackbar(
-                      "Error",
-                      "Please correct all fields",
-                      colorText: Colors.black,
-                      snackPosition: SnackPosition.TOP,
-                      backgroundColor: Colors.transparent,
-                    );
-                  }
-                },
+              SizedBox(
+                width: double.infinity,
+                height: 41.h,
+                child: CustomButton(
+                  text: 'Sign in',
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Get.snackbar(
+                        "Success",
+                        "Login successfully!",
+                        snackPosition: SnackPosition.TOP,
+                        colorText: Colors.black,
+                        backgroundColor: Colors.transparent,
+                      );
+                      Get.offAllNamed('/home');
+                    } else {
+                      Get.snackbar(
+                        "Error",
+                        "Please correct all fields",
+                        colorText: Colors.black,
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.transparent,
+                      );
+                    }
+                  },
+                ),
               ),
 
               SizedBox(height: 30.h),

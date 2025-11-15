@@ -204,28 +204,32 @@ class _OtpverificationScreenState extends State<OtpverificationScreen> {
                 SizedBox(height: 30.h),
 
                 /// Submit Button
-                CustomButton(
-                  text: 'Submit code',
-                  onPressed: () {
-                    if (!pinController.isPinLengthValid()) {
-                      showError.value = true;
-                      return;
-                    }
+                SizedBox(
+                  width: double.infinity,
+                  height: 41.h,
+                  child: CustomButton(
+                    text: 'Submit code',
+                    onPressed: () {
+                      if (!pinController.isPinLengthValid()) {
+                        showError.value = true;
+                        return;
+                      }
 
-                    // Clear error if shown
-                    showError.value = false;
+                      // Clear error if shown
+                      showError.value = false;
 
-                    Get.snackbar(
-                      "Success",
-                      "OTP Verified!",
-                      colorText: Colors.black,
-                      backgroundColor: Colors.white,
-                      snackPosition: SnackPosition.TOP,
-                    );
+                      Get.snackbar(
+                        "Success",
+                        "OTP Verified!",
+                        colorText: Colors.black,
+                        backgroundColor: Colors.white,
+                        snackPosition: SnackPosition.TOP,
+                      );
 
-                    // Optional: Navigate to next screen
-                    Get.toNamed('/resetpass');
-                  },
+                      // Optional: Navigate to next screen
+                      Get.toNamed('/resetpass');
+                    },
+                  ),
                 ),
 
                 SizedBox(height: 25.h),

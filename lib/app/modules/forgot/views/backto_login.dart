@@ -47,9 +47,13 @@ class _BacktoLoginState extends State<BacktoLogin> {
                 ),
               ),
               SizedBox(height: 30.h),
-              CustomButton(
-                text: 'Back to login',
-                onPressed: () => Get.toNamed('/login'),
+              SizedBox(
+                width: double.infinity,
+                height: 41.h,
+                child: CustomButton(
+                  text: 'Back to login',
+                  onPressed: () => Get.toNamed('/login'),
+                ),
               ),
             ],
           ),

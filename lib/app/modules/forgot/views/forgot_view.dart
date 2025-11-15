@@ -97,21 +97,25 @@ class ForgotView extends GetView<ForgotController> {
                   },
                 ),
                 SizedBox(height: 30.h),
-                CustomButton(
-                  text: 'Send code',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.toNamed('/otp_screen');
-                    } else {
-                      Get.snackbar(
-                        "Error",
-                        "Please correct all fields",
-                        colorText: Colors.black,
-                        snackPosition: SnackPosition.TOP,
-                        backgroundColor: Colors.transparent,
-                      );
-                    }
-                  },
+                SizedBox(
+                  width: double.infinity,
+                  height: 41.h,
+                  child: CustomButton(
+                    text: 'Send code',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.toNamed('/otp_screen');
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          "Please correct all fields",
+                          colorText: Colors.black,
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: Colors.transparent,
+                        );
+                      }
+                    },
+                  ),
                 ),
                 SizedBox(height: 25.h),
                 Center(

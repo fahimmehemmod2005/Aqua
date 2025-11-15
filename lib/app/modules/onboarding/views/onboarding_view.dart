@@ -42,12 +42,16 @@ class OnboardingView extends GetView<OnboardingController> {
             Obx(
               () => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 19.w),
-                child: CustomButton(
-                  text:
-                      controller.currentPage.value == controller.pages.length - 1
-                      ? 'Get Started'
-                      : 'Next',
-                  onPressed: controller.nextPage
+                child: SizedBox(
+                  height: 41.h,
+                  width: double.infinity,
+                  child: CustomButton(
+                    text:
+                        controller.currentPage.value == controller.pages.length - 1
+                        ? 'Get Started'
+                        : 'Next',
+                    onPressed: controller.nextPage
+                  ),
                 ),
               ),
             ),

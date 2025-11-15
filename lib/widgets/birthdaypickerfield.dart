@@ -41,7 +41,6 @@ class _BirthdayPickerFieldState extends State<BirthdayPickerField> {
       readOnly: true,
       validator: widget.validator,
       decoration: InputDecoration(
-        filled: true,
         hintText: 'DD/MM/YY',
         hintStyle: GoogleFonts.manrope(
           fontWeight: FontWeight.w400,

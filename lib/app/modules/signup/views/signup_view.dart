@@ -294,38 +294,42 @@ class SignupView extends GetView<SignupController> {
                 ],
               ),
               SizedBox(height: 25.h),
-              CustomButton(
-                text: 'Sign up',
-                onPressed: () {
-                  // Form validation first
-                  if (_formKey.currentState!.validate()) {
-                    // Hide error if user checked
-                    checkboxCtrl.showError.value = false;
-                    // 🔥 Checkbox validation
-                    if (!checkboxCtrl.isChecked.value) {
-                      checkboxCtrl.showError.value =
-                          true; // Show error under checkbox
-                      return; // Stop signup
+              SizedBox(
+                width: double.infinity,
+                height: 41.h,
+                child: CustomButton(
+                  text: 'Sign up',
+                  onPressed: () {
+                    // Form validation first
+                    if (_formKey.currentState!.validate()) {
+                      // Hide error if user checked
+                      checkboxCtrl.showError.value = false;
+                      // 🔥 Checkbox validation
+                      if (!checkboxCtrl.isChecked.value) {
+                        checkboxCtrl.showError.value =
+                            true; // Show error under checkbox
+                        return; // Stop signup
+                      }
+                      Get.snackbar(
+                        "Success",
+                        "Signup successfully!",
+                        snackPosition: SnackPosition.TOP,
+                        colorText: Colors.black,
+                        backgroundColor: Colors.transparent,
+                      );
+                      Get.toNamed('/signupsteps');
+                    } else {
+                      // Form field errors
+                      Get.snackbar(
+                        "Error",
+                        "Please correct all fields",
+                        colorText: Colors.black,
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.transparent,
+                      );
                     }
-                    Get.snackbar(
-                      "Success",
-                      "Login successfully!",
-                      snackPosition: SnackPosition.TOP,
-                      colorText: Colors.black,
-                      backgroundColor: Colors.transparent,
-                    );
-                    Get.toNamed('/signupsteps');
-                  } else {
-                    // Form field errors
-                    Get.snackbar(
-                      "Error",
-                      "Please correct all fields",
-                      colorText: Colors.black,
-                      snackPosition: SnackPosition.TOP,
-                      backgroundColor: Colors.transparent,
-                    );
-                  }
-                },
+                  },
+                ),
               ),
               SizedBox(height: 25.h),
 
@@ -387,6 +391,7 @@ class SignupView extends GetView<SignupController> {
                   ),
                 ),
               ),
+              SizedBox(height: 40.h,)
             ],
           ),
         ),

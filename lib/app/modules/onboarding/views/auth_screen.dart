@@ -49,9 +49,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               Spacer(), // pushes buttons to bottom
-              CustomButton(
-                text: 'Sign up',
-                onPressed: () => Get.offAllNamed('/signup'),
+              SizedBox(
+                height: 41.h,
+                width: double.infinity,
+                child: CustomButton(
+                  text: 'Sign up',
+                  onPressed: () => Get.offAllNamed('/signup'),
+                ),
               ),
               SizedBox(height: 10.h),
               SizedBox(
@@ -67,7 +71,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     style: GoogleFonts.inter(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xff369FFF),
+                      color: Color(0xff369FFF),
                     ),
                   ),
                 ),

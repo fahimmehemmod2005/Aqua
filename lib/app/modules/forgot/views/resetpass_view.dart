@@ -181,28 +181,32 @@ class _ResetpassViewState extends State<ResetpassView> {
 
                 SizedBox(height: 30.h),
 
-                CustomButton(
-                  text: 'Submit Password',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.snackbar(
-                        "Success",
-                        "Signup successfully!",
-                        snackPosition: SnackPosition.TOP,
-                        colorText: Colors.black,
-                        backgroundColor: Colors.transparent,
-                      );
-                      Get.toNamed('/backlogin');
-                    } else {
-                      Get.snackbar(
-                        "Error",
-                        "Fix all errors before continuing",
-                        snackPosition: SnackPosition.TOP,
-                        colorText: Colors.black,
-                        backgroundColor: Colors.transparent,
-                      );
-                    }
-                  },
+                SizedBox(
+                  width: double.infinity,
+                  height: 41.h,
+                  child: CustomButton(
+                    text: 'Submit Password',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.snackbar(
+                          "Success",
+                          "Signup successfully!",
+                          snackPosition: SnackPosition.TOP,
+                          colorText: Colors.black,
+                          backgroundColor: Colors.transparent,
+                        );
+                        Get.toNamed('/backlogin');
+                      } else {
+                        Get.snackbar(
+                          "Error",
+                          "Fix all errors before continuing",
+                          snackPosition: SnackPosition.TOP,
+                          colorText: Colors.black,
+                          backgroundColor: Colors.transparent,
+                        );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

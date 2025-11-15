@@ -1,7 +1,9 @@
 import 'package:aqua/widgets/custom_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/signupsteps_controller.dart';
 
 class SignupstepsView extends GetView<SignupstepsController> {
@@ -18,9 +20,11 @@ class SignupstepsView extends GetView<SignupstepsController> {
             Obx(
               () => LinearProgressIndicator(
                 value: controller.progress,
-                backgroundColor: Colors.grey[200],
-                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                minHeight: 4,
+                backgroundColor: const Color(0xffE8E8E8),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  Color(0xff369FFF),
+                ),
+                minHeight: 3,
               ),
             ),
 
@@ -55,291 +59,629 @@ class SignupstepsView extends GetView<SignupstepsController> {
     );
   }
 
-  // Step 1: Gender
+  // Step 1: Gender with CupertinoPicker
   Widget _buildGenderStep() {
+    final genderOptions = ['Male', 'Female', 'Prefer not to say'];
+
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40.h),
+          Text(
             "What's your gender?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 60),
-          Obx(
-            () => _buildOptionButton(
-              'Male',
-              controller.selectedGender.value == 'Male',
-              () => controller.selectGender('Male'),
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
             ),
           ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'Female',
-              controller.selectedGender.value == 'Female',
-              () => controller.selectGender('Female'),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'Prefer not to say',
-              controller.selectedGender.value == 'Prefer not to say',
-              () => controller.selectGender('Prefer not to say'),
+          SizedBox(height: 90.h),
+          Center(
+            child: SizedBox(
+              height: 200.h,
+              child: CupertinoPicker(
+                scrollController: FixedExtentScrollController(
+                  initialItem: controller.selectedGender.value.isEmpty
+                      ? 0
+                      : genderOptions.indexOf(controller.selectedGender.value),
+                ),
+                itemExtent: 50.h,
+                diameterRatio: 1.5,
+                squeeze: 1.2,
+                onSelectedItemChanged: (index) {
+                  controller.selectGender(genderOptions[index]);
+                },
+                selectionOverlay: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
+                      ),
+                      bottom: BorderSide(
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w ,
+                      ),
+                    ),
+                  ),
+                ),
+                children: List.generate(
+                  genderOptions.length,
+                  (index) => Center(
+                    child: Obx(
+                      () => Text(
+                        genderOptions[index],
+                        style: GoogleFonts.inter(
+                          fontSize:
+                              controller.selectedGender.value ==
+                                  genderOptions[index]
+                              ? 20.sp
+                              : 16.sp,
+                          fontWeight:
+                              controller.selectedGender.value ==
+                                  genderOptions[index]
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                          color:
+                              controller.selectedGender.value ==
+                                  genderOptions[index]
+                              ? const Color(0xff369FFF)
+                              : const Color(0xffC7C7CC),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           const Spacer(),
           Obx(
             () => _buildNextButton(controller.selectedGender.value.isNotEmpty),
           ),
+          SizedBox(height: 20.h),
         ],
       ),
     );
   }
 
-  // Step 2: Age
+  // Step 2: Age with Cupertino Picker
   Widget _buildAgeStep() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40.h),
+          Text(
             "What's your age?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
+            ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 90.h),
           Center(
-            child: Column(
-              children: [
-                Obx(
-                  () => Text(
-                    controller.age.value.toString(),
-                    style: const TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+            child: SizedBox(
+              height: 200.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Age Picker
+                  SizedBox(
+                    width: 80.w,
+                    child: CupertinoPicker(
+                      scrollController: FixedExtentScrollController(
+                        initialItem: controller.age.value - 10,
+                      ),
+                      itemExtent: 50.h,
+                      diameterRatio: 1.5,
+                      squeeze: 1.2,
+                      onSelectedItemChanged: (index) {
+                        controller.updateAge(index + 10);
+                      },
+                      selectionOverlay: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              color: const Color(0xff369FFF),
+                              width: 0.5.w,
+                            ),
+                            bottom: BorderSide(
+                              color: const Color(0xff369FFF),
+                              width: 0.5.w,
+                            ),
+                          ),
+                        ),
+                      ),
+                      children: List.generate(91, (index) {
+                        final value = index + 10;
+                        return Center(
+                          child: Obx(
+                            () => Text(
+                              '$value',
+                              style: GoogleFonts.inter(
+                                fontSize: controller.age.value == value
+                                    ? 28.sp
+                                    : 18.sp,
+                                fontWeight: controller.age.value == value
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: controller.age.value == value
+                                    ? const Color(0xff369FFF)
+                                    : const Color(0xffC7C7CC),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
                     ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'years',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-                const SizedBox(height: 40),
-                Obx(
-                  () => Slider(
-                    value: controller.age.value.toDouble(),
-                    min: 10,
-                    max: 100,
-                    divisions: 90,
-                    activeColor: Colors.blue,
-                    onChanged: (value) => controller.updateAge(value.toInt()),
+                  SizedBox(width: 8.w),
+                  Padding(
+                    padding: EdgeInsets.only(top: 6.h),
+                    child: Text(
+                      'years',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xffC7C7CC),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const Spacer(),
           _buildNextButton(true),
+          SizedBox(height: 20.h),
         ],
       ),
     );
   }
 
-  // Step 3: Weight
+  // Step 3: Weight with Cupertino Picker and Unit Selector
   Widget _buildWeightStep() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40.h),
+          Text(
             "What's your weight?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
+            ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 90.h,),
           Center(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Obx(
-                      () => Text(
-                        controller.weight.value.toString(),
-                        style: const TextStyle(
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+            child: SizedBox(
+              height: 200.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Weight Picker
+                  SizedBox(
+                    width: 80.w,
+                    child: Obx(
+                      () => CupertinoPicker(
+                        scrollController: FixedExtentScrollController(
+                          initialItem: controller.weightUnit.value == 'Kg'
+                              ? (controller.weight.value - 30).clamp(0, 120)
+                              : (controller.weight.value - 66).clamp(0, 264),
+                        ),
+                        itemExtent: 50.h,
+                        diameterRatio: 1.5,
+                        squeeze: 1.2,
+                        onSelectedItemChanged: (index) {
+                          if (controller.weightUnit.value == 'Kg') {
+                            controller.updateWeight(index + 30);
+                          } else {
+                            controller.updateWeight(index + 66);
+                          }
+                        },
+                        selectionOverlay: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(
+                                color: const Color(0xff369FFF),
+                                width: 0.5.w,
+                              ),
+                              bottom: BorderSide(
+                                color: const Color(0xff369FFF),
+                                width: 0.5.w,
+                              ),
+                            ),
+                          ),
+                        ),
+                        children: List.generate(
+                          controller.weightUnit.value == 'Kg' ? 121 : 265,
+                          (index) {
+                            final value = controller.weightUnit.value == 'Kg'
+                                ? index + 30
+                                : index + 66;
+                            return Center(
+                              child: Obx(
+                                () => Text(
+                                  '$value',
+                                  style: GoogleFonts.inter(
+                                    fontSize: controller.weight.value == value
+                                        ? 28.sp
+                                        : 18.sp,
+                                    fontWeight: controller.weight.value == value
+                                        ? FontWeight.w600
+                                        : FontWeight.w400,
+                                    color: controller.weight.value == value
+                                        ? const Color(0xff369FFF)
+                                        : const Color(0xffC7C7CC),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        'kg',
-                        style: TextStyle(fontSize: 20, color: Colors.grey),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Obx(
-                  () => Slider(
-                    value: controller.weight.value.toDouble(),
-                    min: 30,
-                    max: 150,
-                    divisions: 120,
-                    activeColor: Colors.blue,
-                    onChanged: (value) =>
-                        controller.updateWeight(value.toInt()),
                   ),
-                ),
-              ],
+                  SizedBox(width: 12.w),
+                  // Unit Picker (Kg/Lb)
+                  SizedBox(
+                    width: 60.w,
+                    child: CupertinoPicker(
+                      scrollController: FixedExtentScrollController(
+                        initialItem: controller.weightUnit.value == 'Kg'
+                            ? 0
+                            : 1,
+                      ),
+                      itemExtent: 50.h,
+                      diameterRatio: 1.5,
+                      squeeze: 1.2,
+                      onSelectedItemChanged: (index) {
+                        final newUnit = index == 0 ? 'Kg' : 'Lb';
+                        if (controller.weightUnit.value != newUnit) {
+                          // Convert weight when switching units
+                          if (newUnit == 'Lb') {
+                            controller.weight.value =
+                                (controller.weight.value * 2.20462).round();
+                          } else {
+                            controller.weight.value =
+                                (controller.weight.value / 2.20462).round();
+                          }
+                          controller.weightUnit.value = newUnit;
+                        }
+                      },
+                      selectionOverlay: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              color: const Color(0xff369FFF),
+                              width: 0.5.w,
+                            ),
+                            bottom: BorderSide(
+                              color: const Color(0xff369FFF),
+                              width: 0.5.w,
+                            ),
+                          ),
+                        ),
+                      ),
+                      children: [
+                        Center(
+                          child: Obx(
+                            () => Text(
+                              'Kg',
+                              style: GoogleFonts.inter(
+                                fontSize: controller.weightUnit.value == 'Kg'
+                                    ? 20.sp
+                                    : 16.sp,
+                                fontWeight: controller.weightUnit.value == 'Kg'
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: controller.weightUnit.value == 'Kg'
+                                    ? const Color(0xff369FFF)
+                                    : const Color(0xffC7C7CC),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Obx(
+                            () => Text(
+                              'Lb',
+                              style: GoogleFonts.inter(
+                                fontSize: controller.weightUnit.value == 'Lb'
+                                    ? 20.sp
+                                    : 16.sp,
+                                fontWeight: controller.weightUnit.value == 'Lb'
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: controller.weightUnit.value == 'Lb'
+                                    ? const Color(0xff369FFF)
+                                    : const Color(0xffC7C7CC),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const Spacer(),
           _buildNextButton(true),
+          SizedBox(height: 20.h),
         ],
       ),
     );
   }
 
-  // Step 4: Activity Level
+  // Step 4: Activity Level with CupertinoPicker
   Widget _buildActivityStep() {
+    final activityOptions = ['Low', 'Moderate', 'High'];
+
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40.h),
+          Text(
             "How active are you\nduring day?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 60),
-          Obx(
-            () => _buildOptionButton(
-              'Low',
-              controller.activityLevel.value == 'Low',
-              () => controller.selectActivityLevel('Low'),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
             ),
           ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'Moderate',
-              controller.activityLevel.value == 'Moderate',
-              () => controller.selectActivityLevel('Moderate'),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'High',
-              controller.activityLevel.value == 'High',
-              () => controller.selectActivityLevel('High'),
+          SizedBox(height: 90.h,),
+          Center(
+            child: SizedBox(
+              height: 200.h,
+              child: CupertinoPicker(
+                scrollController: FixedExtentScrollController(
+                  initialItem: controller.activityLevel.value.isEmpty
+                      ? 1
+                      : activityOptions.indexOf(controller.activityLevel.value),
+                ),
+                itemExtent: 50.h,
+                diameterRatio: 1.5,
+                squeeze: 1.2,
+                onSelectedItemChanged: (index) {
+                  controller.selectActivityLevel(activityOptions[index]);
+                },
+                selectionOverlay: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
+                      ),
+                      bottom: BorderSide(
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
+                      ),
+                    ),
+                  ),
+                ),
+                children: List.generate(
+                  activityOptions.length,
+                  (index) => Center(
+                    child: Obx(
+                      () => Text(
+                        activityOptions[index],
+                        style: GoogleFonts.inter(
+                          fontSize:
+                              controller.activityLevel.value ==
+                                  activityOptions[index]
+                              ? 20.sp
+                              : 16.sp,
+                          fontWeight:
+                              controller.activityLevel.value ==
+                                  activityOptions[index]
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                          color:
+                              controller.activityLevel.value ==
+                                  activityOptions[index]
+                              ? const Color(0xff369FFF)
+                              : const Color(0xffC7C7CC),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           const Spacer(),
           Obx(
             () => _buildNextButton(controller.activityLevel.value.isNotEmpty),
           ),
+          SizedBox(height: 20.h),
         ],
       ),
     );
   }
 
-  // Step 5: Climate
+  // Step 5: Climate with CupertinoPicker
   Widget _buildClimateStep() {
+    final climateOptions = ['Cold', 'Mild', 'Hot'];
+
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40.h),
+          Text(
             "What's the climate/\nweather like in your area?",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 60),
-          Obx(
-            () => _buildOptionButton(
-              'Cold',
-              controller.climate.value == 'Cold',
-              () => controller.selectClimate('Cold'),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
             ),
           ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'Mild',
-              controller.climate.value == 'Mild',
-              () => controller.selectClimate('Mild'),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'Hot',
-              controller.climate.value == 'Hot',
-              () => controller.selectClimate('Hot'),
+          SizedBox(height: 90.h,),
+          Center(
+            child: SizedBox(
+              height: 200.h,
+              child: CupertinoPicker(
+                scrollController: FixedExtentScrollController(
+                  initialItem: controller.climate.value.isEmpty
+                      ? 1
+                      : climateOptions.indexOf(controller.climate.value),
+                ),
+                itemExtent: 50.h,
+                diameterRatio: 1.5,
+                squeeze: 1.2,
+                onSelectedItemChanged: (index) {
+                  controller.selectClimate(climateOptions[index]);
+                },
+                selectionOverlay: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: const Color(0xff369FFF).withOpacity(0.2),
+                        width: 0.5,
+                      ),
+                      bottom: BorderSide(
+                        color: const Color(0xff369FFF).withOpacity(0.2),
+                        width: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+                children: List.generate(
+                  climateOptions.length,
+                  (index) => Center(
+                    child: Obx(
+                      () => Text(
+                        climateOptions[index],
+                        style: GoogleFonts.inter(
+                          fontSize:
+                              controller.climate.value == climateOptions[index]
+                              ? 20.sp
+                              : 16.sp,
+                          fontWeight:
+                              controller.climate.value == climateOptions[index]
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                          color:
+                              controller.climate.value == climateOptions[index]
+                              ? const Color(0xff369FFF)
+                              : const Color(0xffC7C7CC),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           const Spacer(),
           Obx(() => _buildNextButton(controller.climate.value.isNotEmpty)),
+          SizedBox(height: 20.h),
         ],
       ),
     );
   }
 
-  // Step 6: Sleep Hours
+  // Step 6: Sleep Hours with CupertinoPicker
   Widget _buildSleepStep() {
+    final sleepOptions = [
+      'Less than 6 hours',
+      '6-8 hours',
+      'More than 8 hours',
+    ];
+
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 40.h),
+          Text(
             "How much do you\nusually sleep",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 60),
-          Obx(
-            () => _buildOptionButton(
-              'Less than 6 hours',
-              controller.sleepHours.value == 'Less than 6 hours',
-              () => controller.selectSleepHours('Less than 6 hours'),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
             ),
           ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              '6-8 hours',
-              controller.sleepHours.value == '6-8 hours',
-              () => controller.selectSleepHours('6-8 hours'),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Obx(
-            () => _buildOptionButton(
-              'More than 8 hours',
-              controller.sleepHours.value == 'More than 8 hours',
-              () => controller.selectSleepHours('More than 8 hours'),
+          SizedBox(height: 90.h,),
+          Center(
+            child: SizedBox(
+              height: 200.h,
+              child: CupertinoPicker(
+                scrollController: FixedExtentScrollController(
+                  initialItem: controller.sleepHours.value.isEmpty
+                      ? 1
+                      : sleepOptions.indexOf(controller.sleepHours.value),
+                ),
+                itemExtent: 50.h,
+                diameterRatio: 1.5,
+                squeeze: 1.2,
+                onSelectedItemChanged: (index) {
+                  controller.selectSleepHours(sleepOptions[index]);
+                },
+                selectionOverlay: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
+                      ),
+                      bottom: BorderSide(
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
+                      ),
+                    ),
+                  ),
+                ),
+                children: List.generate(
+                  sleepOptions.length,
+                  (index) => Center(
+                    child: Obx(
+                      () => Text(
+                        sleepOptions[index],
+                        style: GoogleFonts.inter(
+                          fontSize:
+                              controller.sleepHours.value == sleepOptions[index]
+                              ? 20.sp
+                              : 16.sp,
+                          fontWeight:
+                              controller.sleepHours.value == sleepOptions[index]
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                          color:
+                              controller.sleepHours.value == sleepOptions[index]
+                              ? const Color(0xff369FFF)
+                              : const Color(0xffC7C7CC),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           const Spacer(),
           Obx(() => _buildNextButton(controller.sleepHours.value.isNotEmpty)),
+          SizedBox(height: 20.h),
         ],
       ),
     );
@@ -347,45 +689,67 @@ class SignupstepsView extends GetView<SignupstepsController> {
 
   // Step 7: Calculating
   Widget _buildCalculatingStep() {
-    // Auto-navigate after calculation
-    Future.delayed(const Duration(seconds: 2), () {
-      controller.calculateHydration();
-      controller.nextStep();
+    // Start calculation when entering this step
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!controller.isCalculating.value) {
+        controller.calculateHydration().then((_) {
+          // Auto-navigate after calculation completes
+          Future.delayed(const Duration(milliseconds: 500), () {
+            controller.nextStep();
+          });
+        });
+      }
     });
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'Generating personalized\nhydration plan for you...',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
+            ),
           ),
-          const SizedBox(height: 40),
-          const Text(
+          SizedBox(height: 16.h),
+          Text(
             'Please wait...',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style: GoogleFonts.inter(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xffC7C7CC),
+            ),
           ),
-          const SizedBox(height: 40),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                width: 150,
-                height: 150,
-                child: CircularProgressIndicator(
-                  value: 0.7,
-                  strokeWidth: 12,
-                  backgroundColor: Colors.grey[200],
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+          SizedBox(height: 60.h),
+          Obx(
+            () => Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 180.w,
+                  height: 180.w,
+                  child: CircularProgressIndicator(
+                    value: controller.calculationProgress.value,
+                    strokeWidth: 17,
+                    backgroundColor: const Color(0xffE8E8E8),
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      Color(0xff369FFF),
+                    ),
+                  ),
                 ),
-              ),
-              const Text(
-                '70%',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-            ],
+                Text(
+                  '${(controller.calculationProgress.value * 100).toInt()}%',
+                  style: GoogleFonts.inter(
+                    fontSize: 44.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff1C1C1E),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -395,85 +759,77 @@ class SignupstepsView extends GetView<SignupstepsController> {
   // Step 8: Result
   Widget _buildResultStep() {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'Based on your\nanswers, we suggest',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: GoogleFonts.inter(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1C1C1E),
+            ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 50.h),
           Obx(
             () => Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  width: 200,
-                  height: 200,
+                  width: 180.w,
+                  height: 180.w,
                   child: CircularProgressIndicator(
                     value: 1.0,
-                    strokeWidth: 16,
-                    backgroundColor: Colors.grey[200],
+                    strokeWidth: 17,
+                    backgroundColor: const Color(0xff369FFF),
                     valueColor: const AlwaysStoppedAnimation<Color>(
-                      Colors.blue,
+                      Color(0xff369FFF),
                     ),
                   ),
                 ),
                 Text(
                   '${controller.hydrationGoal.value} ml',
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                  style: GoogleFonts.inter(
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff369FFF),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 50.h),
           SizedBox(
+            height: 41.h,
             width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
+            child: CustomButton(
+              text: 'Set Recommended goal',
               onPressed: () => controller.finishOnboarding(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: const Text(
-                'Set Recommended goal',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 12.h),
           SizedBox(
+            height: 41.h,
             width: double.infinity,
-            height: 56,
-            child: OutlinedButton(
-              onPressed: () {
-                // Allow user to customize
-              },
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.blue),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xffE7F3FF),
+                elevation: 0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(36.r),
                 ),
               ),
-              child: const Text(
+              onPressed: () {
+                // Handle custom goal
+              },
+              child: Text(
                 'Set own goal',
-                style: TextStyle(
-                  fontSize: 16,
+                style: GoogleFonts.inter(
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
-                  color: Colors.blue,
+                  color: const Color(0xff369FFF),
                 ),
               ),
             ),
@@ -483,36 +839,11 @@ class SignupstepsView extends GetView<SignupstepsController> {
     );
   }
 
-  // Reusable option button
-  Widget _buildOptionButton(String text, bool isSelected, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.blue : Colors.grey[100],
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.white : Colors.black87,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   // Next button
   Widget _buildNextButton(bool enabled) {
     return SizedBox(
+      height: 48.h,
       width: double.infinity,
-      height: 56,
       child: CustomButton(
         text: 'Next',
         onPressed: enabled ? () => controller.nextStep() : null,
