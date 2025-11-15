@@ -16,9 +16,7 @@ class ResetpassView extends StatefulWidget {
 
 class _ResetpassViewState extends State<ResetpassView> {
   final PassController passCtrl = Get.find<PassController>();
-
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController passwordCtrl = TextEditingController();
   final TextEditingController confirmPasswordCtrl = TextEditingController();
 
@@ -189,7 +187,7 @@ class _ResetpassViewState extends State<ResetpassView> {
                     if (_formKey.currentState!.validate()) {
                       Get.snackbar(
                         "Success",
-                        "Password set successfully!",
+                        "Signup successfully!",
                         snackPosition: SnackPosition.TOP,
                         colorText: Colors.black,
                         backgroundColor: Colors.transparent,

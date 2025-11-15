@@ -51,7 +51,7 @@ class _AuthScreenState extends State<AuthScreen> {
               Spacer(), // pushes buttons to bottom
               CustomButton(
                 text: 'Sign up',
-                onPressed: () {},
+                onPressed: () => Get.offAllNamed('/signup'),
               ),
               SizedBox(height: 10.h),
               SizedBox(

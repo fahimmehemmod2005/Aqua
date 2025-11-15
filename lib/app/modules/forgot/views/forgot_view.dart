@@ -138,7 +138,6 @@ class ForgotView extends GetView<ForgotController> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20.h),
               ],
             ),
           ),

@@ -12,6 +12,8 @@ abstract class Routes {
   static const OTPSCREEN = _Paths.OTPSCREEN;
   static const RESETPASS = _Paths.RESETPASS;
   static const BACKLOGIN = _Paths.BACKLOGIN;
+  static const SIGNUP = _Paths.SIGNUP;
+  static const SIGNUPSTEPS = _Paths.SIGNUPSTEPS;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const OTPSCREEN = '/otp_screen';
   static const RESETPASS = '/resetpass';
   static const BACKLOGIN = '/backlogin';
+  static const SIGNUP = '/signup';
+  static const SIGNUPSTEPS = '/step_sign';
 }

@@ -276,20 +276,21 @@ class LoginView extends GetView<LoginController> {
                     style: GoogleFonts.manrope(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff2C2C2C),
+                      color: const Color(0xff2C2C2C),
                     ),
                     children: [
-                      TextSpan(text: "Don’t have an account? "),
+                      const TextSpan(text: "Don’t have an account? "),
                       TextSpan(
-                        text: "Sign Up",
+                        text: 'Sign up',
                         style: GoogleFonts.manrope(
                           fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff369FFF),
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff369FFF),
                         ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Get.offAllNamed('/signup'),
                       ),
                     ],
-                    recognizer: TapGestureRecognizer()..onTap = () {},
                   ),
                 ),
               ),
