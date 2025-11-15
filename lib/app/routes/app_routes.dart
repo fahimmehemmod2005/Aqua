@@ -28,5 +28,5 @@ abstract class _Paths {
   static const RESETPASS = '/resetpass';
   static const BACKLOGIN = '/backlogin';
   static const SIGNUP = '/signup';
-  static const SIGNUPSTEPS = '/step_sign';
+  static const SIGNUPSTEPS = '/signupsteps';
 }

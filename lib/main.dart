@@ -13,6 +13,7 @@ void main() {
         title: "Aqua",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
+
       ),
     ),
   );

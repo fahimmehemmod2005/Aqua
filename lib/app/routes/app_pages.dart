@@ -1,7 +1,4 @@
-import 'package:aqua/app/modules/signup/bindings/signup_binding.dart';
-import 'package:aqua/app/modules/signup/views/signupsteps.dart';
 import 'package:get/get.dart';
-
 import '../modules/forgot/bindings/forgot_binding.dart';
 import '../modules/forgot/views/backto_login.dart';
 import '../modules/forgot/views/forgot_view.dart';
@@ -15,6 +12,8 @@ import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/auth_screen.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/signup/views/signup_view.dart';
+import '../modules/signupsteps/bindings/signupsteps_binding.dart';
+import '../modules/signupsteps/views/signupsteps_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -46,10 +45,7 @@ class AppPages {
       page: () => const OnboardingView(),
       binding: OnboardingBinding(),
     ),
-    GetPage(
-      name: _Paths.AUTHSCREEN,
-      page: () => const AuthScreen(),
-    ),
+    GetPage(name: _Paths.AUTHSCREEN, page: () => const AuthScreen()),
     GetPage(
       name: _Paths.FORGOT,
       page: () => const ForgotView(),
@@ -60,14 +56,8 @@ class AppPages {
       page: () => const OtpverificationScreen(),
       binding: ForgotBinding(),
     ),
-    GetPage(
-      name: _Paths.RESETPASS,
-      page: () => const ResetpassView(),
-    ),
-    GetPage(
-      name: _Paths.BACKLOGIN,
-      page: () => const BacktoLogin(),
-    ),
+    GetPage(name: _Paths.RESETPASS, page: () => const ResetpassView()),
+    GetPage(name: _Paths.BACKLOGIN, page: () => const BacktoLogin()),
     GetPage(
       name: _Paths.SIGNUP,
       page: () => const SignupView(),
@@ -75,7 +65,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SIGNUPSTEPS,
-      page: () => const Signupsteps(),
+      page: () => const SignupstepsView(),
+      binding: SignupstepsBinding(),
     ),
   ];
 }

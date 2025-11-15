@@ -132,6 +132,15 @@ class SignupView extends GetView<SignupController> {
                 },
               ),
               SizedBox(height: 10.h),
+              Text(
+                'Password',
+                style: GoogleFonts.manrope(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.sp,
+                  color: Color(0xff2C2C2C),
+                ),
+              ),
+              SizedBox(height: 5.h),
               Obx(
                 () => CustomTextFormField(
                   controller: passwordCtrl,
@@ -284,7 +293,7 @@ class SignupView extends GetView<SignupController> {
                   ),
                 ],
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 25.h),
               CustomButton(
                 text: 'Sign up',
                 onPressed: () {
@@ -305,7 +314,7 @@ class SignupView extends GetView<SignupController> {
                       colorText: Colors.black,
                       backgroundColor: Colors.transparent,
                     );
-                    Get.toNamed('/step_sign');
+                    Get.toNamed('/signupsteps');
                   } else {
                     // Form field errors
                     Get.snackbar(
@@ -318,7 +327,7 @@ class SignupView extends GetView<SignupController> {
                   }
                 },
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 25.h),
 
               /// OR DIVIDER
               OrDivider(
@@ -332,7 +341,7 @@ class SignupView extends GetView<SignupController> {
                 ),
               ),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: 15.h),
 
               /// SOCIAL LOGINS
               Row(
@@ -350,7 +359,7 @@ class SignupView extends GetView<SignupController> {
                 ],
               ),
 
-              SizedBox(height: 25.h),
+              SizedBox(height: 20.h),
 
               // SIGNUP TEXT
               Center(
