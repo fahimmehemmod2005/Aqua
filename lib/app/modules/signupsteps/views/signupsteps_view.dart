@@ -522,7 +522,7 @@ class SignupstepsView extends GetView<SignupstepsController> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 40.h),
           Text(
@@ -554,12 +554,12 @@ class SignupstepsView extends GetView<SignupstepsController> {
                   decoration: BoxDecoration(
                     border: Border(
                       top: BorderSide(
-                        color: const Color(0xff369FFF).withOpacity(0.2),
-                        width: 0.5,
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
                       ),
                       bottom: BorderSide(
-                        color: const Color(0xff369FFF).withOpacity(0.2),
-                        width: 0.5,
+                        color: const Color(0xff369FFF),
+                        width: 0.5.w,
                       ),
                     ),
                   ),
@@ -821,9 +821,7 @@ class SignupstepsView extends GetView<SignupstepsController> {
                   borderRadius: BorderRadius.circular(36.r),
                 ),
               ),
-              onPressed: () {
-                // Handle custom goal
-              },
+              onPressed: () => Get.toNamed('/owngoal'),
               child: Text(
                 'Set own goal',
                 style: GoogleFonts.inter(

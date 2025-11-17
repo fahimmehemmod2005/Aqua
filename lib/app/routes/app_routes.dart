@@ -14,6 +14,9 @@ abstract class Routes {
   static const BACKLOGIN = _Paths.BACKLOGIN;
   static const SIGNUP = _Paths.SIGNUP;
   static const SIGNUPSTEPS = _Paths.SIGNUPSTEPS;
+  static const OWNGOAL = _Paths.OWNGOAL;
+  static const ALLSET = _Paths.ALLSET;
+  static const SWITCHDRINK = _Paths.SWITCHDRINK;
 }
 
 abstract class _Paths {
@@ -29,4 +32,7 @@ abstract class _Paths {
   static const BACKLOGIN = '/backlogin';
   static const SIGNUP = '/signup';
   static const SIGNUPSTEPS = '/signupsteps';
+  static const OWNGOAL = '/owngoal';
+  static const ALLSET = '/allset';
+  static const SWITCHDRINK = '/allset';
 }

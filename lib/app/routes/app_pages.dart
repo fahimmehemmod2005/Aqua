@@ -1,3 +1,6 @@
+import 'package:aqua/app/modules/login/views/switchdrink.dart';
+import 'package:aqua/app/modules/signupsteps/views/allset.dart';
+import 'package:aqua/app/modules/signupsteps/views/owngoal.dart';
 import 'package:get/get.dart';
 import '../modules/forgot/bindings/forgot_binding.dart';
 import '../modules/forgot/views/backto_login.dart';
@@ -68,5 +71,8 @@ class AppPages {
       page: () => const SignupstepsView(),
       binding: SignupstepsBinding(),
     ),
+    GetPage(name: _Paths.OWNGOAL, page: () => const OwnGoal()),
+    GetPage(name: _Paths.ALLSET, page: () => const AllSet()),
+    GetPage(name: _Paths.SWITCHDRINK, page: () => const SwitchDrink()),
   ];
 }

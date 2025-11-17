@@ -133,6 +133,6 @@ class SignupstepsController extends GetxController {
   // Finish onboarding
   void finishOnboarding() {
     // Navigate to main app or save preferences
-    Get.offAllNamed('/home');
+   Get.offAllNamed('/home',parameters: {'passMlLavel': '2500'});
   }
 }
