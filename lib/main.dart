@@ -1,3 +1,5 @@
+import 'package:aqua/app/modules/home/views/home_view.dart';
+import 'package:aqua/app/modules/login/views/switchdrink.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,9 +14,9 @@ void main() {
       builder: (context, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Aqua",
-        initialRoute: AppPages.INITIAL,
-        getPages: AppPages.routes,
-
+        // initialRoute: AppPages.INITIAL,
+        // getPages: AppPages.routes,
+        home: SwitchDrink(),
       ),
     ),
   );
